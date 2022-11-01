@@ -15,7 +15,11 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import java.time.LocalDateTime;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 @Controller
 public class PrdictionController {
@@ -42,32 +46,22 @@ public class PrdictionController {
         this.alphaService = alphaService;
     }
 
+    @GetMapping("/calcP0")
+    public Map<Long,Double> calculateP0(@RequestParam("id_list") List<Long> id_list,  @RequestParam("date")LocalDateTime date, @RequestParam("var") Integer var){
+        Map<Long,Double> map = new HashMap<>();
+        for (Long id:id_list){
+            Double p0= p0Service.calculateP0(id,date,var);
+            map.put(id,p0);
+        }
+        return map;
+    }
 
-    @GetMapping("/")
-    public String predict(@RequestParam("equip_id") Long equip_id, @RequestParam("days") Integer days,@RequestParam("version") Long version){
-        EquipmentEnt equip = equipmentRepo.findById(equip_id).get();
-        InfluxDB influxDB = InfluxDBFactory.connect("http://localhost:8086", "admin", "admin");
-        Pong responce = influxDB.ping();
-        if (responce.getVersion().equalsIgnoreCase("unknown")){
-            Exception exception= new Exception("cannot connect to influx db");
-        }
-        else {
-            System.out.println("connected");
-        }
-        if (equip!=null){
-            Double p0=p0Service.calculateP0(equip,version,influxDB);
-            Double betta = equip.getEquipType().getBetta();
-            Double alpha =alphaService.calcAlpha(equip,version,influxDB);
-            for (int i=1;i<=days;i++){
-                Date predDate= new Date(equip.getLastFixionDate().getTime()+24*60*60*1000*i);
-                Double prob = p0*Math.exp(-alpha*24*i)*Math.exp(-betta*24*i);
-                ProbabilityEnt probabilityEnt = new ProbabilityEnt(equip,predDate,prob);
-                probabilityRepo.save(probabilityEnt);
-            }
+    @GetMapping("/calcPForReal")
+    public String predict(@RequestParam("equip_id") List<Long> equip_id, @RequestParam("date")LocalDateTime date){
+        for (Long i:equip_id){
+            p0Service.calcPForEquipment(i,date);
         }
         String status="ok";
-
-
         return status;
 
     }

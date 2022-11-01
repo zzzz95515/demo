@@ -1,11 +1,10 @@
 package com.example.demo.services;
 
-import com.example.demo.entity.influx.ItsMeasurementsInflux;
 import com.example.demo.entity.postgres.ItsMeasurementsPostgresVersion;
-import com.example.demo.repositories.influx.ItsMeasRepo;
-import org.influxdb.InfluxDB;
+import com.example.demo.repositories.postgres.ItsMeasRepo;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.Date;
 
 @Service
@@ -16,25 +15,29 @@ public class ItsMeasurementServ {
         this.itsMeasRepo = itsMeasRepo;
     }
 
-    public Double getOneItsBeforeDate(Long equipId, Date date, Long planId, InfluxDB influxDB){
-        ItsMeasurementsInflux itsMeasurement = itsMeasRepo.getFirstByEquipmentIdAndMeasurmentDateBeforeOrderByMeasurmentDateDesc(equipId, date,planId,influxDB);
+    public Double getOneItsBeforeDate(Long equipId, LocalDateTime date){
+        ItsMeasurementsPostgresVersion itsMeasurement = itsMeasRepo.getFirstByEquipmentIdAndMeasurmentDateBeforeOrderByMeasurmentDateDesc(equipId, date);
         return itsMeasurement.getIts();
     }
 
-    public Double getOneItsAfterDate(Long equipId, Date date, Long planId, InfluxDB influxDB){
-        ItsMeasurementsInflux itsMeasurement = itsMeasRepo.getFirstByEquipmentIdAndMeasurmentDateAfterOrderByMeasurmentDateAsc(equipId, date,planId,influxDB);
+    public Double getOneItsAfterDate(Long equipId, LocalDateTime date){
+        ItsMeasurementsPostgresVersion itsMeasurement = itsMeasRepo.getFirstByEquipmentIdAndMeasurmentDateAfterOrderByMeasurmentDateAsc(equipId, date);
         return itsMeasurement.getIts();
     }
 
-    public Double getDifferentialOfIts(Long equipId, Date date, Long planId, InfluxDB influxDB){
-        ItsMeasurementsInflux lastIts = itsMeasRepo.getFirstByEquipmentIdAndMeasurmentDateAfterOrderByMeasurmentDateDesc(equipId, date,planId,influxDB);
-        ItsMeasurementsInflux firstIts = itsMeasRepo.getFirstByEquipmentIdAndMeasurmentDateAfterOrderByMeasurmentDateAsc(equipId, date,planId,influxDB);
-        Long difTime = (lastIts.getTime().toEpochMilli()-date.getTime())/(1000*60*60);
-        Double difIts= lastIts.getIts()-firstIts.getIts();
-        return difTime/difIts;
+//    public Double getDifferentialOfIts(Long equipId, LocalDateTime date){
+//        ItsMeasurementsPostgresVersion lastIts = itsMeasRepo.getFirstByEquipmentIdAndMeasurmentDateAfterOrderByMeasurmentDateDesc(equipId, date);
+//        ItsMeasurementsPostgresVersion firstIts = itsMeasRepo.getFirstByEquipmentIdAndMeasurmentDateAfterOrderByMeasurmentDateAsc(equipId, date);
+//        Long difTime = (lastIts.getMeasurmentDate().t-date.getTime())/(1000*60*60);
+//        Double difIts= lastIts.getIts()-firstIts.getIts();
+//        return difTime/difIts;
+//    }
+
+    public Double getLastIts(Long equipId, LocalDateTime date){
+        return itsMeasRepo.getFirstByEquipmentIdAndMeasurmentDateAfterOrderByMeasurmentDateDesc(equipId, date).getIts();
     }
 
-    public Double getLastIts(Long equipId, Date date, Long planId, InfluxDB influxDB){
-        return itsMeasRepo.getFirstByEquipmentIdAndMeasurmentDateAfterOrderByMeasurmentDateDesc(equipId, date,planId,influxDB).getIts();
+    public Double getItsByDate(Long eqipId, LocalDateTime date){
+        return itsMeasRepo.findByEquipmentIdAndMeasurmentDate(eqipId,date).getIts();
     }
 }

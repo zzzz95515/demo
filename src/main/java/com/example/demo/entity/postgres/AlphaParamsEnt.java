@@ -17,6 +17,23 @@ public class AlphaParamsEnt {
     private Double p2;
 
     private Double p3;
+    private Double alpha;
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public Double getAlpha() {
+        return alpha;
+    }
+
+    public void setAlpha(Double alpha) {
+        this.alpha = alpha;
+    }
 
     public EquipmentEnt getEquipment() {
         return equipment;
