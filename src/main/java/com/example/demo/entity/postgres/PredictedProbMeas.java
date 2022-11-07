@@ -4,6 +4,7 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @Entity
@@ -15,7 +16,7 @@ public class PredictedProbMeas {
   @JoinColumn(name = "equipment_id")
   private EquipmentEnt equipment;
 
-  private LocalDateTime date;
+  private LocalDate date;
 
   private Double probability;
 
@@ -37,11 +38,11 @@ public class PredictedProbMeas {
     this.equipment = equipment;
   }
 
-  public LocalDateTime getDate() {
+  public LocalDate getDate() {
     return date;
   }
 
-  public void setDate(LocalDateTime date) {
+  public void setDate(LocalDate date) {
     this.date = date;
   }
 

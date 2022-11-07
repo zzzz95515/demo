@@ -1,15 +1,18 @@
 package com.example.demo;
 
-import java.util.Date;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.temporal.ChronoUnit;
 
 public class Main {
     public static void main(String[] args) {
-        Date date1 = new Date("10/12/1996");
-        Date date2 = new Date("10/13/1996");
 
-        System.out.println(date1);
-        System.out.println(date2);
+        LocalDate date1 = LocalDate.parse("01/02/2021", DateTimeFormatter.ofPattern("dd/MM/yyyy"));
 
-        System.out.println(date2.getTime()-date1.getTime());
+        LocalDate date2 = LocalDate.parse("01/08/2022", DateTimeFormatter.ofPattern("dd/MM/yyyy"));
+        long integer =  ChronoUnit.DAYS.between(date1, date2);
+        System.out.println(ChronoUnit.DAYS.between(date2, date1));
+
+
     }
 }

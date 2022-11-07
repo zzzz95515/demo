@@ -4,6 +4,7 @@ import com.example.demo.entity.postgres.ItsMeasurementsPostgresVersion;
 import com.example.demo.repositories.postgres.ItsMeasRepo;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Date;
 
@@ -15,12 +16,12 @@ public class ItsMeasurementServ {
         this.itsMeasRepo = itsMeasRepo;
     }
 
-    public Double getOneItsBeforeDate(Long equipId, LocalDateTime date){
+    public Double getOneItsBeforeDate(Long equipId, LocalDate date){
         ItsMeasurementsPostgresVersion itsMeasurement = itsMeasRepo.getFirstByEquipmentIdAndMeasurmentDateBeforeOrderByMeasurmentDateDesc(equipId, date);
         return itsMeasurement.getIts();
     }
 
-    public Double getOneItsAfterDate(Long equipId, LocalDateTime date){
+    public Double getOneItsAfterDate(Long equipId, LocalDate date){
         ItsMeasurementsPostgresVersion itsMeasurement = itsMeasRepo.getFirstByEquipmentIdAndMeasurmentDateAfterOrderByMeasurmentDateAsc(equipId, date);
         return itsMeasurement.getIts();
     }
@@ -33,11 +34,11 @@ public class ItsMeasurementServ {
 //        return difTime/difIts;
 //    }
 
-    public Double getLastIts(Long equipId, LocalDateTime date){
+    public Double getLastIts(Long equipId, LocalDate date){
         return itsMeasRepo.getFirstByEquipmentIdAndMeasurmentDateAfterOrderByMeasurmentDateDesc(equipId, date).getIts();
     }
 
-    public Double getItsByDate(Long eqipId, LocalDateTime date){
+    public Double getItsByDate(Long eqipId, LocalDate date){
         return itsMeasRepo.findByEquipmentIdAndMeasurmentDate(eqipId,date).getIts();
     }
 }

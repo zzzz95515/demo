@@ -4,6 +4,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Date;
 
@@ -14,17 +15,17 @@ public class ItsMeasurementsPostgresVersion {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private LocalDateTime measurmentDate;
+    private LocalDate measurmentDate;
 
     private Double its;
 
     private Long equipmentId;
 
-    public LocalDateTime getMeasurmentDate() {
+    public LocalDate getMeasurmentDate() {
         return measurmentDate;
     }
 
-    public void setMeasurmentDate(LocalDateTime measurmentDate) {
+    public void setMeasurmentDate(LocalDate measurmentDate) {
         this.measurmentDate = measurmentDate;
     }
 

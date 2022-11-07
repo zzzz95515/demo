@@ -1,6 +1,7 @@
 package com.example.demo.entity.postgres;
 
 import javax.persistence.*;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Date;
 
@@ -15,7 +16,7 @@ public class EquipmentEnt {
 
     private String mrid;
 
-    private LocalDateTime lastFixionDate;
+    private LocalDate lastFixionDate;
 
     public EquipmentTypeEnt getEquipType() {
         return equipType;
@@ -33,11 +34,11 @@ public class EquipmentEnt {
         this.mrid = mrid;
     }
 
-    public LocalDateTime getLastFixionDate() {
+    public LocalDate getLastFixionDate() {
         return lastFixionDate;
     }
 
-    public void setLastFixionDate(LocalDateTime lastFixionDate) {
+    public void setLastFixionDate(LocalDate lastFixionDate) {
         this.lastFixionDate = lastFixionDate;
     }
 
@@ -50,7 +51,7 @@ public class EquipmentEnt {
                 '}';
     }
 
-    public EquipmentEnt(EquipmentTypeEnt equipType, String mrid, LocalDateTime lastFixionDate) {
+    public EquipmentEnt(EquipmentTypeEnt equipType, String mrid, LocalDate lastFixionDate) {
         this.equipType = equipType;
         this.mrid = mrid;
         this.lastFixionDate = lastFixionDate;

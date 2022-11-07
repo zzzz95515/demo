@@ -1,6 +1,7 @@
 package com.example.demo.entity.postgres;
 
 import javax.persistence.*;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @Entity
@@ -12,7 +13,7 @@ public class PredictedItsMeas {
   @JoinColumn(name = "equipment_id")
   private EquipmentEnt equipment;
 
-  private LocalDateTime date;
+  private LocalDate date;
 
   private Double its;
 
@@ -34,11 +35,11 @@ public class PredictedItsMeas {
     this.equipment = equipment;
   }
 
-  public LocalDateTime getDate() {
+  public LocalDate getDate() {
     return date;
   }
 
-  public void setDate(LocalDateTime date) {
+  public void setDate(LocalDate date) {
     this.date = date;
   }
 

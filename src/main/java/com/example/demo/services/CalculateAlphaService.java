@@ -31,4 +31,8 @@ public class CalculateAlphaService {
     }
 
 
+    public Double getAlpha(EquipmentEnt equipment) {
+        return alphaRepo.findByEquipment(equipment).getAlpha();
+
+    }
 }

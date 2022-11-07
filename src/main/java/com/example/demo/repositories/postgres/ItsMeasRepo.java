@@ -4,15 +4,16 @@ import com.example.demo.entity.postgres.EquipmentEnt;
 import com.example.demo.entity.postgres.ItsMeasurementsPostgresVersion;
 import org.springframework.data.jpa.repository.JpaRepository;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Date;
 
 public interface ItsMeasRepo extends JpaRepository<ItsMeasurementsPostgresVersion,Long> {
-    ItsMeasurementsPostgresVersion getFirstByEquipmentIdAndMeasurmentDateBeforeOrderByMeasurmentDateDesc(Long equipmentId, LocalDateTime fixionDate);
+    ItsMeasurementsPostgresVersion getFirstByEquipmentIdAndMeasurmentDateBeforeOrderByMeasurmentDateDesc(Long equipmentId, LocalDate fixionDate);
 
-    ItsMeasurementsPostgresVersion getFirstByEquipmentIdAndMeasurmentDateAfterOrderByMeasurmentDateAsc(Long equipmentId, LocalDateTime fixionDate);
+    ItsMeasurementsPostgresVersion getFirstByEquipmentIdAndMeasurmentDateAfterOrderByMeasurmentDateAsc(Long equipmentId, LocalDate fixionDate);
 
-    ItsMeasurementsPostgresVersion getFirstByEquipmentIdAndMeasurmentDateAfterOrderByMeasurmentDateDesc(Long equipmentId, LocalDateTime fixionDate);
+    ItsMeasurementsPostgresVersion getFirstByEquipmentIdAndMeasurmentDateAfterOrderByMeasurmentDateDesc(Long equipmentId, LocalDate fixionDate);
 
-    ItsMeasurementsPostgresVersion findByEquipmentIdAndMeasurmentDate(Long equipmentId,LocalDateTime dateTime);
+    ItsMeasurementsPostgresVersion findByEquipmentIdAndMeasurmentDate(Long equipmentId,LocalDate dateTime);
 }

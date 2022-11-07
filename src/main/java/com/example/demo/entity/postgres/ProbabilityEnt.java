@@ -1,6 +1,7 @@
 package com.example.demo.entity.postgres;
 
 import javax.persistence.*;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @Entity
@@ -12,7 +13,7 @@ public class ProbabilityEnt {
     @OneToOne
     private EquipmentEnt equipment;
 
-    private LocalDateTime dateTime;
+    private LocalDate dateTime;
 
     private double predProb;
 
@@ -24,11 +25,11 @@ public class ProbabilityEnt {
         this.equipment = equipment;
     }
 
-    public LocalDateTime getDateTime() {
+    public LocalDate getDateTime() {
         return dateTime;
     }
 
-    public void setDateTime(LocalDateTime predDate) {
+    public void setDateTime(LocalDate predDate) {
         this.dateTime = predDate;
     }
 
@@ -49,7 +50,7 @@ public class ProbabilityEnt {
                 '}';
     }
 
-    public ProbabilityEnt(EquipmentEnt equipment, LocalDateTime predDate, double predProb) {
+    public ProbabilityEnt(EquipmentEnt equipment, LocalDate predDate, double predProb) {
         this.equipment = equipment;
         this.dateTime = predDate;
         this.predProb = predProb;

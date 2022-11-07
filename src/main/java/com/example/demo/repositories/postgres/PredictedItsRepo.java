@@ -5,11 +5,12 @@ import com.example.demo.entity.postgres.PredictedItsMeas;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @Repository
 public interface PredictedItsRepo extends JpaRepository<PredictedItsMeas,Long> {
-    PredictedItsMeas findByEquipmentAndDateAAndPlanNumber(EquipmentEnt equip, LocalDateTime localDateTime,Integer planNumber);
-    PredictedItsMeas findByEquipmentAndDateAfterAndAndPlanNumber(EquipmentEnt equip, LocalDateTime localDateTime, Integer planNumber);
-    PredictedItsMeas findByEquipmentAndDateBeforeAndAndPlanNumber(EquipmentEnt equip, LocalDateTime localDateTime, Integer planNumber);
+    PredictedItsMeas findByEquipmentAndDateAAndPlanNumber(EquipmentEnt equip, LocalDate LocalDate, Integer planNumber);
+    PredictedItsMeas findByEquipmentAndDateAfterAndAndPlanNumber(EquipmentEnt equip, LocalDate LocalDate, Integer planNumber);
+    PredictedItsMeas findByEquipmentAndDateBeforeAndAndPlanNumber(EquipmentEnt equip, LocalDate LocalDate, Integer planNumber);
 }
