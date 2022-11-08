@@ -76,13 +76,14 @@ public class PrdictionController {
     }
 
     @GetMapping("/predict/second")
-    public Map<Long,Map<LocalDate,Double>> predictPsecond( @RequestParam("map") Map<Long,LocalDate> equip_date_map,@RequestParam("var") Long var){
-
+    public Map<Long,Map<LocalDate,Double>> predictPsecond( @RequestParam("map") Map<Long,LocalDate> equip_date_map,@RequestParam("var") Integer var,@RequestParam("lastDate") LocalDate dateTime){
         Map<Long,Map<LocalDate,Double>> resultMap = new HashMap<>();
-//        for (Long id:equip_id){
-//            Map<LocalDate, Double> calculatedMap = p0Service.calculateP0ForPredicted(id,dateTime);
-//            resultMap.put(id,calculatedMap);
-//        }
+        Set<Long> equip_id = equip_date_map.keySet();
+        for (Long id:equip_id){
+            LocalDate lastFixDate = equip_date_map.get(id);
+            Map<LocalDate, Double> calculatedMap = p0Service.calculateP0ForPredictedSec(id,lastFixDate,dateTime,var);
+            resultMap.put(id,calculatedMap);
+        }
         return resultMap;
     }
 }
