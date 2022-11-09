@@ -3,11 +3,12 @@ package com.example.demo.repositories.postgres;
 import com.example.demo.entity.postgres.EquipmentEnt;
 import com.example.demo.entity.postgres.ItsMeasurementsPostgresVersion;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.util.Date;
 
+
+@Repository
 public interface ItsMeasRepo extends JpaRepository<ItsMeasurementsPostgresVersion,Long> {
     ItsMeasurementsPostgresVersion getFirstByEquipmentIdAndMeasurmentDateBeforeOrderByMeasurmentDateDesc(Long equipmentId, LocalDate fixionDate);
 

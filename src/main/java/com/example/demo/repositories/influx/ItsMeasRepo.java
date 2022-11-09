@@ -11,7 +11,7 @@ import org.springframework.stereotype.Repository;
 import java.util.Date;
 import java.util.List;
 
-@Repository
+
 public class ItsMeasRepo {
 
     public ItsMeasurementsInflux getFirstByEquipmentIdAndMeasurmentDateBeforeOrderByMeasurmentDateDesc(Long equipmentId, Date fixionDate, Long planVersion, InfluxDB influxDB){

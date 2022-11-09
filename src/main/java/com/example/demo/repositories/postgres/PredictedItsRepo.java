@@ -10,7 +10,7 @@ import java.time.LocalDateTime;
 
 @Repository
 public interface PredictedItsRepo extends JpaRepository<PredictedItsMeas,Long> {
-    PredictedItsMeas findByEquipmentAndDateAAndPlanNumber(EquipmentEnt equip, LocalDate LocalDate, Integer planNumber);
+    PredictedItsMeas findByEquipmentAndDateAndPlanNumber(EquipmentEnt equip, LocalDate LocalDate, Integer planNumber);
     PredictedItsMeas findByEquipmentAndDateAfterAndAndPlanNumber(EquipmentEnt equip, LocalDate LocalDate, Integer planNumber);
     PredictedItsMeas findByEquipmentAndDateBeforeAndAndPlanNumber(EquipmentEnt equip, LocalDate LocalDate, Integer planNumber);
 }

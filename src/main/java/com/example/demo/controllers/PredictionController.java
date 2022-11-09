@@ -1,26 +1,21 @@
 package com.example.demo.controllers;
 
 
-import com.example.demo.entity.postgres.EquipmentEnt;
-import com.example.demo.entity.postgres.ProbabilityEnt;
+
 import com.example.demo.repositories.postgres.EquipTypeRepo;
 import com.example.demo.repositories.postgres.EquipmentRepo;
 import com.example.demo.repositories.postgres.ProbabilityRepo;
 import com.example.demo.services.CalculateAlphaService;
 import com.example.demo.services.CalculateP0Service;
-import org.influxdb.InfluxDB;
-import org.influxdb.InfluxDBFactory;
-import org.influxdb.dto.Pong;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.*;
 
 @Controller
-public class PrdictionController {
+public class PredictionController {
 
     private final CalculateP0Service p0Service;
 
@@ -36,7 +31,7 @@ public class PrdictionController {
 
 
 
-    public PrdictionController(CalculateP0Service p0Service, EquipmentRepo equipmentRepo, EquipTypeRepo equipTypeRepo, ProbabilityRepo probabilityRepo, CalculateAlphaService alphaService) {
+    public PredictionController(CalculateP0Service p0Service, EquipmentRepo equipmentRepo, EquipTypeRepo equipTypeRepo, ProbabilityRepo probabilityRepo, CalculateAlphaService alphaService) {
         this.p0Service = p0Service;
         this.equipmentRepo = equipmentRepo;
         this.equipTypeRepo = equipTypeRepo;
@@ -45,7 +40,8 @@ public class PrdictionController {
     }
 
     @GetMapping("/calcP0")
-    public Map<Long,Double> calculateP0(@RequestParam("id_Date_Map") Map<Long, LocalDate> idDateMap, @RequestParam("var") Integer var){
+    //актуализировать на получение дельты
+    public Map<Long,Double> calculateP0(@RequestParam("id_Date_Map") Map<Long, List<LocalDate>> idDateMap, @RequestParam("var") Integer var){
         Set<Long> id_list = idDateMap.keySet();
         Map<Long,Double> map = new HashMap<>();
         for (Long id:id_list){
@@ -76,11 +72,11 @@ public class PrdictionController {
     }
 
     @GetMapping("/predict/second")
-    public Map<Long,Map<LocalDate,Double>> predictPsecond( @RequestParam("map") Map<Long,LocalDate> equip_date_map,@RequestParam("var") Integer var,@RequestParam("lastDate") LocalDate dateTime){
+    public Map<Long,Map<LocalDate,Double>> predictPsecond( @RequestParam("map") Map<Long,List<LocalDate>> equip_date_map,@RequestParam("var") Integer var,@RequestParam("lastDate") LocalDate dateTime){
         Map<Long,Map<LocalDate,Double>> resultMap = new HashMap<>();
         Set<Long> equip_id = equip_date_map.keySet();
         for (Long id:equip_id){
-            LocalDate lastFixDate = equip_date_map.get(id);
+            List<LocalDate> lastFixDate = equip_date_map.get(id);
             Map<LocalDate, Double> calculatedMap = p0Service.calculateP0ForPredictedSec(id,lastFixDate,dateTime,var);
             resultMap.put(id,calculatedMap);
         }
