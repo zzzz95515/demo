@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.*;
 
 @Controller
@@ -82,4 +83,37 @@ public class PredictionController {
         }
         return resultMap;
     }
+
+//    @GetMapping("/testPforReal")
+//    public void testP0(){
+//        Long id =1l;
+//        LocalDate localDate=LocalDate.parse("06/11/2017", DateTimeFormatter.ofPattern("dd/MM/yyyy"));
+//        Map<LocalDate,Double> result = p0Service.calculateP0ForPredicted(id,localDate);
+//        List<Long> testList = new ArrayList<>();
+//        testList.add(id);
+//        predict(testList,localDate);
+//    }
+
+//    @GetMapping("/testP0")
+//    public void testP0(){
+//        Long id =1l;
+//        LocalDate localDate=LocalDate.parse("17/11/2017", DateTimeFormatter.ofPattern("dd/MM/yyyy"));
+//        List<LocalDate> testList = new ArrayList<>();
+//        testList.add(null);
+//        testList.add(localDate);
+//        Double result = p0Service.calculateP0(id,testList,1);
+//        System.out.println(result);
+//    }
+
+    @GetMapping("/testP0")
+    public void testPredictSecond(){
+        Long id =1l;
+        LocalDate localDate=LocalDate.parse("17/11/2017", DateTimeFormatter.ofPattern("dd/MM/yyyy"));
+        LocalDate localDate1=LocalDate.parse("29/11/2017", DateTimeFormatter.ofPattern("dd/MM/yyyy"));
+        List<LocalDate> testList = new ArrayList<>();
+        testList.add(localDate);
+        Map<LocalDate,Double> result = p0Service.calculateP0ForPredictedSec(id,testList,localDate1,1);
+        System.out.println(result);
+    }
+
 }

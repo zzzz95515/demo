@@ -1,22 +1,19 @@
 package com.example.demo.entity.postgres;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
+import javax.persistence.*;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 
 @Entity
 public class PredictedProbMeas {
   @Id
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
 
   @ManyToOne
   @JoinColumn(name = "equipment_id")
   private EquipmentEnt equipment;
 
-  private LocalDate date;
+  private LocalDate predDate;
 
   private Double probability;
 
@@ -38,12 +35,12 @@ public class PredictedProbMeas {
     this.equipment = equipment;
   }
 
-  public LocalDate getDate() {
-    return date;
+  public LocalDate getPredDate() {
+    return predDate;
   }
 
-  public void setDate(LocalDate date) {
-    this.date = date;
+  public void setPredDate(LocalDate predDate) {
+    this.predDate = predDate;
   }
 
   public Double getProbability() {
