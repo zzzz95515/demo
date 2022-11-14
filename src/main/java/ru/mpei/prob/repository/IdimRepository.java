@@ -1,8 +1,8 @@
 package ru.mpei.prob.repository;
 
 
-import ru.mpei.ltdb.model.CIMProfile.IEC61970.Base.Core.IdentifiedObject;
-import ru.mpei.ltdb.model.Library.Tables.CapexOpex.*;
+import ru.mpei.prob.model.CIMProfile.IEC61970.Base.Core.IdentifiedObject;
+import ru.mpei.prob.model.Library.Tables.CapexOpex.*;
 
 import java.util.Collection;
 import java.util.List;

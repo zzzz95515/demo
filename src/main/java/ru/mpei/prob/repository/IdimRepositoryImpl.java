@@ -3,8 +3,8 @@ package ru.mpei.prob.repository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
-import ru.mpei.ltdb.model.CIMProfile.IEC61970.Base.Core.*;
-import ru.mpei.ltdb.model.CIMProfile.NTI.CimClassName;
+import ru.mpei.prob.model.CIMProfile.IEC61970.Base.Core.*;
+import ru.mpei.prob.model.CIMProfile.NTI.CimClassName;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
